@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Compound from './compound'
-import ListStyle from '../../css/list/util.module.less'
+import ListStyle from '../../css/list/util1.module.less'
 import customizeStyle1 from '../../css/list/customize1.module.less'
 import customizeStyle2 from '../../css/list/customize2.module.less'
 
@@ -9,7 +9,18 @@ class Li extends Component {
   constructor(){
     super();
   }
-  
+  judgeHeroImg(){
+    let r=Math.random();
+    if(r<0.3){
+      return require("../../pic/heroName1.png")
+    }else if(r<0.5){
+      return require("../../pic/heroName2.png")
+    }else if(r<0.7){
+      return require("../../pic/heroName3.png")
+    }else{
+      return require("../../pic/heroName4.png")
+    }
+  }
   judgeWinner(){
     if(parseInt(this.props.content.player_slot)<125){
       if(this.props.content.radiant_win){
@@ -64,10 +75,27 @@ class Li extends Component {
     }
   }
   judgeHeroName(){
-
+    return "Hero Name";
   }
-  judgeTime(){
-
+  judgeTime(second){
+    let date=new Date();
+    date=parseInt(date/1000);
+    let time=date-second;
+    if(time>(3600*24*365)){
+      time=parseInt(time/(3600*24*365));
+      return time+" Years Ago"
+    }else if(time>(3600*24*30)){
+      time=parseInt(time/(3600*24*30));
+      return time+" Months Ago"
+    }else if(time>(3600*24)){
+      time=parseInt(time/(3600*24));
+      return time+" Days Ago"
+    }else if(time>3600){
+      time= parseInt(time/3600);
+      return time+" Hours Ago"
+    }else{
+      return "Time Error"
+    }
   }
   judgeWinRate(){
     var rate=parseInt(this.props.content.win)/(parseInt(this.props.content.games))*100;
@@ -111,8 +139,11 @@ class Li extends Component {
     for(let key in this.props.rule){
       switch(this.props.rule[key]){
         //compound
-        case 'hero':
-          rows.push(this.setStyle('compound',this.judgeHeroName(),this.judgeTime(),'blue'));
+        case 'hero1':
+          rows.push(this.setStyle('compoundimg',this.judgeHeroName(),this.judgeTime(this.props.content.start_time),'blue'));
+          break;
+        case 'hero2':
+          rows.push(this.setStyle('compoundimg',this.judgeHeroName(),this.judgeTime(this.props.content.last_played),'blue'));
           break;
         case 'result':
           rows.push(this.setStyle('compound',this.judgeWinner(),this.judgeLobbyType(),'result'));
@@ -176,6 +207,15 @@ class Li extends Component {
             }
           }
         return (<Compound top={value1} btm={value2} color={cl}></Compound>)
+      case 'compoundimg':
+          if(cl=='result'){
+            if(value1=='Won Match'){
+              return (<Compound top={value1} btm={value2} color={'green'} haveImg={true} imgsrc={this.judgeHeroImg()}></Compound>)
+            }else{
+              return (<Compound top={value1} btm={value2} color={'red'} haveImg={true} imgsrc={this.judgeHeroImg()}></Compound>)
+            }
+          }
+        return (<Compound top={value1} btm={value2} color={cl} haveImg={true} imgsrc={this.judgeHeroImg()}></Compound>)
     }
   }
   render() {

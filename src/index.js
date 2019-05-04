@@ -14,7 +14,7 @@ ReactDOM.render((
         <Route path="/match/:matchid" component={Match} />
         <Route path="/player/:playerid" component={Player} />
     </Router>
-), document.getElementById('root'));
+), document.getElementsByTagName('body')[0]);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

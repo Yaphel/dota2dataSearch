@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TabBarChild from './tabbarChild';
+import tabbarStyle from '../../css/tabbar/tabbar.module.less'
 
 class TabBarMain extends Component {
 
@@ -13,11 +14,12 @@ class TabBarMain extends Component {
       rows.push(<TabBarChild name={this.props.tabBtn[i]}></TabBarChild>);
       //路由未写
     }
+    return rows;
   }
 
   render() {
     return (
-      <div>
+      <div className={tabbarStyle.main}>
         {this.buildRow()} 
       </div>
     );

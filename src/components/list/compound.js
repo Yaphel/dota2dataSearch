@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListStyle from '../../css/list/util.module.less'
+import ListStyle from '../../css/list/util1.module.less'
 
 class Compound extends Component {
   constructor(){
@@ -22,12 +22,23 @@ class Compound extends Component {
     }
   }
 
+
   render() {
     let a=this.judgeColor(this.props.color);
-    return (
+    return (this.props.haveImg)?(
       <div className={ListStyle.compound}>
-        <p className={a}>{this.props.top}</p>
-        <p>{this.props.btm}</p>
+        <img src={this.props.imgsrc}/>
+        <section className={ListStyle.namebox}>
+          <p className={a}>{this.props.top}</p>
+          <p>{this.props.btm}</p>
+        </section>
+      </div>
+    ):(
+      <div className={ListStyle.compound}>
+        <section className={ListStyle.namebox}>
+          <p className={a}>{this.props.top}</p>
+          <p>{this.props.btm}</p>
+        </section>
       </div>
     );
   }

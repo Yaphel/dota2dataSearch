@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Li from './listChild';
-import ListStyle from '../../css/list/util.module.less'
+import ListStyle1 from '../../css/list/util1.module.less'
+import ListStyle2 from '../../css/list/util2.module.less'
 
 class ListMain extends Component {
 
@@ -14,6 +15,7 @@ class ListMain extends Component {
   content:  列表待处理内容
   rule:  显示规则
   headContent:  LiHead中的内容
+  number: 单页显示数目
 
 
     Li 传入属性：
@@ -30,7 +32,7 @@ class ListMain extends Component {
       let a= this.props.content;
       let rows=[];
       rows.push(<Li head={true} headContent={this.props.headContent} cs={this.props.cs}></Li>)
-      for(let i in a){
+      for(let i=0;i<Math.min(this.props.number,a.length);i++){
         rows.push(<Li content={a[i]} head={false} rule={this.props.rule} headContent={this.props.headContent} cs={this.props.cs}></Li>)
       }
       return rows;
@@ -39,13 +41,30 @@ class ListMain extends Component {
     }
   }
 
-  render() {
-    let a=this.renderTable();
-    return (a)?(
-        <ul className={ListStyle.ul}>
+  renderStyle(s,a){
+    switch(s){
+      case 'custom1':
+        return(
+        <ul className={ListStyle1.ul}>
           <title>{this.props.title}</title>
           {a}
         </ul>
+        )
+      case 'custom2':
+        return(
+      <ul className={ListStyle2.ul}>
+        <title>{this.props.title}</title>
+        {a}
+      </ul>
+      )
+
+    }
+  }
+
+  render() {
+    let a=this.renderTable();
+    return (a)?(
+      this.renderStyle(this.props.style,a)
     ):(
       <div>
         no data

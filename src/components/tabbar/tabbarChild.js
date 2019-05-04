@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import tabbarStyle from '../../css/tabbar/tabbar.module.less'
 class TabBarChild extends Component {
 
   constructor(){
@@ -10,9 +10,9 @@ class TabBarChild extends Component {
 
   render() {
     return (
-      <div>
+      <a className={tabbarStyle.a}>
         {this.props.name}
-      </div>
+      </a>
     );
   }
 }
