@@ -3,11 +3,43 @@ import Compound from './compound'
 import ListStyle from '../../css/list/util1.module.less'
 import customizeStyle1 from '../../css/list/customize1.module.less'
 import customizeStyle2 from '../../css/list/customize2.module.less'
+import customizeStyle3 from '../../css/list/customize3.module.less'
+import customizeStyle4 from '../../css/list/customize4.module.less'
 
 
 class Li extends Component {
   constructor(){
     super();
+  }
+
+  customize(cs,rows){
+    switch(cs){
+      case 'custom1':
+        return(
+          <div className={customizeStyle1.li}>
+            {rows}
+          </div>
+        )
+      case 'custom2':
+        return(
+          <div className={customizeStyle2.li}>
+            {rows}
+          </div>
+        )
+      case 'custom3':
+        return(
+          <div className={customizeStyle3.li}>
+            {rows}
+          </div>
+        )
+      case 'custom4':
+        return(
+          <div className={customizeStyle4.li}>
+            {rows}
+          </div>
+        )
+    }
+
   }
   judgeHeroImg(){
     let r=Math.random();
@@ -102,26 +134,33 @@ class Li extends Component {
     rate=rate.toFixed(1);
     return rate;
   }
-
-
-
-  customize(cs,rows){
-    switch(cs){
-      case 'custom1':
-        return(
-          <div className={customizeStyle1.li}>
-            {rows}
-          </div>
-        )
-      case 'custom2':
-        return(
-          <div className={customizeStyle2.li}>
-            {rows}
-          </div>
-        )
-    }
-
+  judgeHeroMatchPlayed(){
+    return this.props.content.games;
   }
+  judgeHeroWinRate(){
+    var rate=parseInt(this.props.content.win)/(parseInt(this.props.content.games))*100;
+    rate=rate.toFixed(1);
+    return rate;
+  }
+  judgeHeroWinWith(){
+    return this.props.content.with_games;
+  }
+  judgeHeroWinWithWinRate(){
+    var rate=parseInt(this.props.content.with_win)/(parseInt(this.props.content.with_games))*100;
+    rate=rate.toFixed(1);
+    return rate;
+  }
+  judgeHeroAgainst(){
+    return this.props.content.against_games;
+  }
+  judgeHeroAgainstWinRate(){
+    var rate=parseInt(this.props.content.against_win)/(parseInt(this.props.content.against_games))*100;
+    rate=rate.toFixed(1);
+    return rate;
+  }
+
+
+
 
   buildHead(){
     let rows=[];
@@ -176,6 +215,24 @@ class Li extends Component {
         case 'win':
           rows.push(this.setStyle('p',this.judgeWinRate()));
           break;
+        case 'heromp':
+          rows.push(this.setStyle('p',this.judgeHeroMatchPlayed()));
+          break;
+        case 'herowr':
+          rows.push(this.setStyle('p',this.judgeHeroWinRate()));
+          break;
+        case 'heroww':
+          rows.push(this.setStyle('p',this.judgeHeroWinWith()));
+          break;
+        case 'herowwwr':
+          rows.push(this.setStyle('p',this.judgeHeroWinWithWinRate()));
+          break;
+        case 'heroag':
+          rows.push(this.setStyle('p',this.judgeHeroAgainst()));
+          break;
+        case 'heroagwr':
+          rows.push(this.setStyle('p',this.judgeHeroAgainstWinRate()));
+          break;
       }
     }
     return (
@@ -193,11 +250,20 @@ class Li extends Component {
         </div>
         )
       case 'p':
-        return (
-          <div>
-            <p className={ListStyle.p}>{value1}</p>
-          </div>
-        )
+        if(cl!=null){
+          return (
+            <div className={ListStyle.p}>
+              <p >{value1}</p>
+            </div>
+          )
+        }else{
+          return (
+            <div className={ListStyle.p}>
+              <p>{value1}</p>
+            </div>
+          )
+        }
+        
       case 'compound':
           if(cl=='result'){
             if(value1=='Won Match'){

@@ -11,7 +11,7 @@ class TabBarMain extends Component {
   buildRow(){
     let rows=[];
     for (let i in this.props.tabBtn){
-      rows.push(<TabBarChild name={this.props.tabBtn[i]}></TabBarChild>);
+      rows.push(<TabBarChild name={this.props.tabBtn[i]} id={this.props.id}></TabBarChild>);
       //路由未写
     }
     return rows;
@@ -21,6 +21,7 @@ class TabBarMain extends Component {
     return (
       <div className={tabbarStyle.main}>
         {this.buildRow()} 
+        
       </div>
     );
   }

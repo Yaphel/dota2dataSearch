@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import tabbarStyle from '../../css/tabbar/tabbar.module.less'
+import {NavLink} from 'react-router-dom'
 class TabBarChild extends Component {
 
   constructor(){
@@ -7,12 +8,14 @@ class TabBarChild extends Component {
   }
 
 
-
+  
   render() {
     return (
-      <a className={tabbarStyle.a}>
-        {this.props.name}
-      </a>
+      <div className={tabbarStyle.a}>
+        <NavLink to={"/player/"+this.props.id+"/"+this.props.name} activeClassName="hurray">
+          {this.props.name}
+        </NavLink>
+      </div>
     );
   }
 }

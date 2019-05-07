@@ -20,7 +20,7 @@ class Match extends Component {
       isLoading:true
     }
   }
-
+//<TabBarMain tabBtn={['Overview','Matches','Heroes']} id={this.props.id}></TabBarMain>
   render() {
     return (
         <div>

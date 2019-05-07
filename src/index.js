@@ -6,13 +6,23 @@ import SearchIndex from './components/searchIndex';
 import Match from './components/match/match';
 import Player from './components/player/player';
 
+import OverView from './components/player/playerContent/Overview'
+import Matches from './components/player/playerContent/Matches'
+import Heroes from './components/player/playerContent/Heroes'
+
 
 //路由
+
+
 ReactDOM.render((
     <Router>
         <Route exact path="/" component={SearchIndex} />
         <Route path="/match/:matchid" component={Match} />
         <Route path="/player/:playerid" component={Player} />
+        <Route path="/player/:playerid/OverView" component={OverView} />
+        <Route path="/player/:playerid/Matches" component={Matches} />
+        <Route path="/player/:playerid/Heroes" component={Heroes} />
+
     </Router>
 ), document.getElementsByTagName('body')[0]);
 
